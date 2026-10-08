@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
-import { BottomNav } from "@/components/BottomNav";
+import { BottomNav, Sidebar } from "@/components/Nav";
 import { ServiceWorker } from "@/components/ServiceWorker";
 
 const display = Fraunces({ variable: "--font-display", subsets: ["latin"], axes: ["opsz"] });
@@ -10,7 +10,7 @@ const body = Hanken_Grotesk({ variable: "--font-body", subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Churn Radar",
   description:
-    "Spot telecom customers likely to leave, understand why, and test what could keep them. Explainable ML in your pocket.",
+    "Spot telecom customers likely to leave, understand why, and test what could keep them. Explainable ML for phone and desktop.",
   applicationName: "Churn Radar",
   appleWebApp: { capable: true, title: "Churn Radar", statusBarStyle: "default" },
   icons: { icon: "/icon-192.png", apple: "/apple-touch-icon.png" },
@@ -21,8 +21,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f1eadf" },
-    { media: "(prefers-color-scheme: dark)", color: "#12100d" },
+    { media: "(prefers-color-scheme: light)", color: "#f3eee4" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e1412" },
   ],
 };
 
@@ -36,12 +36,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <div className="mx-auto min-h-dvh w-full max-w-[480px] bg-paper/0 sm:border-x sm:border-line">
-          <main id="main" className="px-4 pb-[calc(6.5rem+env(safe-area-inset-bottom))] pt-[max(1.25rem,env(safe-area-inset-top))]">
+        <Sidebar />
+        <div className="min-h-dvh md:pl-64">
+          <main
+            id="main"
+            className="mx-auto w-full max-w-[560px] px-4 pb-[calc(6.5rem+env(safe-area-inset-bottom))] pt-[max(1.25rem,env(safe-area-inset-top))] md:max-w-3xl md:px-8 md:pb-14 md:pt-10 lg:max-w-6xl"
+          >
             {children}
           </main>
-          <BottomNav />
         </div>
+        <BottomNav />
         <ServiceWorker />
       </body>
     </html>

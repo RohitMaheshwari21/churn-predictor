@@ -20,7 +20,7 @@ export default function InsightsPage() {
   return (
     <>
       <ScreenTitle title="Insights" subtitle="What drives churn, how far to trust the model, and what it saves." />
-      <div className="rise mb-4"><Segmented label="View" value={view} options={VIEWS} onChange={setView} /></div>
+      <div className="rise mb-4 lg:max-w-md"><Segmented label="View" value={view} options={VIEWS} onChange={setView} /></div>
       {error && <ErrorNote message={error} />}
       {!error && (!segments || !model || !scored) && <Loading what="insights" />}
       {segments && model && scored && (
@@ -46,8 +46,8 @@ function Drivers({ segments }: { segments: Segments }) {
   const lo = rows.reduce((a, b) => (b.rate < a.rate ? b : a));
 
   return (
-    <div className="space-y-4">
-      <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label="Segment">
+    <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
+      <div className="flex gap-2 overflow-x-auto pb-1 lg:col-span-2 lg:flex-wrap" role="group" aria-label="Segment">
         {keys.map((k) => <Chip key={k} active={key === k} onClick={() => setKey(k)}>{k}</Chip>)}
       </div>
       <Card>
@@ -83,12 +83,12 @@ function Drivers({ segments }: { segments: Segments }) {
 
 /* ---------- Model ---------- */
 
-function Tile({ label, value, note }: { label: string; value: string; note: string }) {
+function Tile({ label, value, note, tint }: { label: string; value: string; note: string; tint: string }) {
   return (
-    <div className="rounded-xl bg-surface2 p-3 text-center">
-      <p className="text-xs text-muted">{label}</p>
+    <div className={`rounded-xl p-3 text-center ${tint}`}>
+      <p className="text-xs opacity-90">{label}</p>
       <p className="display text-2xl font-semibold">{value}</p>
-      <p className="text-[0.7rem] leading-tight text-muted">{note}</p>
+      <p className="text-[0.7rem] leading-tight opacity-90">{note}</p>
     </div>
   );
 }
@@ -111,13 +111,13 @@ function ModelView({ model, scored }: { model: ModelJson; scored: Scored[] }) {
   const cv = model.cv_results ?? {};
 
   return (
-    <div className="space-y-4">
+    <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
       <Card>
         <H2>Held-out test performance</H2>
         <div className="grid grid-cols-3 gap-2">
-          <Tile label="AUC" value={model.metrics.auc.toFixed(2)} note="ranking quality" />
-          <Tile label="Recall" value={pct(model.metrics.recall)} note="leavers caught" />
-          <Tile label="Precision" value={pct(model.metrics.precision)} note="flagged who leave" />
+          <Tile tint="bg-infobg text-info" label="AUC" value={model.metrics.auc.toFixed(2)} note="ranking quality" />
+          <Tile tint="bg-primarybg text-primary" label="Recall" value={pct(model.metrics.recall)} note="leavers caught" />
+          <Tile tint="bg-warnbg text-warn" label="Precision" value={pct(model.metrics.precision)} note="flagged who leave" />
         </div>
         <p className="mt-3 text-xs text-muted">
           Precision is low on purpose: a missed customer costs 10× more than an unneeded offer, so the model flags generously.
@@ -197,7 +197,7 @@ function CostView({ scored }: { scored: Scored[] }) {
   const saving = baseline - r.best.cost;
 
   return (
-    <div className="space-y-4">
+    <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
       <Card>
         <H2>Set your costs</H2>
         <div className="space-y-5">
@@ -206,7 +206,7 @@ function CostView({ scored }: { scored: Scored[] }) {
         </div>
       </Card>
 
-      <Card aria-live="polite">
+      <Card aria-live="polite" className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
         <H2>Best policy</H2>
         <p className="display text-3xl font-semibold leading-tight">
           Contact customers at <span className="text-accent">{pct(r.best.t)}</span> risk or higher
@@ -215,7 +215,7 @@ function CostView({ scored }: { scored: Scored[] }) {
 
         <svg viewBox={`0 0 ${W} ${H}`} className="mt-3 w-full" role="img"
           aria-label={`Total cost against risk threshold. Lowest cost ${money(r.best.cost)} at ${pct(r.best.t)}.`}>
-          <path d={path} fill="none" stroke="var(--ink)" strokeWidth="2" strokeLinejoin="round" />
+          <path d={path} fill="none" stroke="var(--primary)" strokeWidth="2.5" strokeLinejoin="round" />
           <line x1={x(r.best.t)} x2={x(r.best.t)} y1={padT} y2={H - padB} stroke="var(--accent)" strokeWidth="1.5" strokeDasharray="3 3" />
           <circle cx={x(r.best.t)} cy={y(r.best.cost)} r="5" fill="var(--accent)" stroke="var(--surface)" strokeWidth="2" />
           {[0, 0.3, 0.6, 0.9].map((t) => (

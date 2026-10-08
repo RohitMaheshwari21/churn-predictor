@@ -21,14 +21,19 @@ export function Card({ children, className = "", ...rest }: React.ComponentProps
 export function ScreenTitle({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
     <header className="rise mb-5">
-      <h1 className="display text-[2rem] font-semibold leading-tight">{title}</h1>
+      <h1 className="display text-[2rem] font-semibold leading-tight md:text-[2.5rem]">{title}</h1>
       {subtitle && <p className="mt-1 text-[0.95rem] text-muted">{subtitle}</p>}
     </header>
   );
 }
 
 export function H2({ children }: { children: React.ReactNode }) {
-  return <h2 className="mb-3 text-[0.8rem] font-semibold uppercase tracking-[0.08em] text-muted">{children}</h2>;
+  return (
+    <h2 className="mb-3 flex items-center gap-2 text-[0.8rem] font-semibold uppercase tracking-[0.08em] text-muted">
+      <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent" />
+      {children}
+    </h2>
+  );
 }
 
 export function RiskPill({ p, threshold }: { p: number; threshold: number }) {
@@ -93,7 +98,7 @@ export function Segmented({
           <label key={o} className="relative min-w-0 flex-1">
             <input type="radio" name={name} value={o} checked={value === o} onChange={() => onChange(o)}
               className="peer sr-only" />
-            <span className="flex min-h-11 items-center justify-center rounded-lg px-1.5 text-center text-[0.9rem] leading-tight text-muted transition-colors peer-checked:bg-ink peer-checked:font-semibold peer-checked:text-paper peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-accent">
+            <span className="flex min-h-11 items-center justify-center rounded-lg px-1.5 text-center text-[0.9rem] leading-tight text-muted transition-colors peer-checked:bg-primary peer-checked:font-semibold peer-checked:text-onprimary peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-accent">
               {o}
             </span>
           </label>
@@ -116,9 +121,9 @@ export function Choice({
           <label key={o} className="relative">
             <input type="radio" name={name} value={o} checked={value === o} onChange={() => onChange(o)}
               className="peer sr-only" />
-            <span className="flex min-h-12 items-center justify-between rounded-xl border border-line bg-surface px-3.5 text-[0.95rem] transition-colors peer-checked:border-ink peer-checked:bg-surface2 peer-checked:font-semibold peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-accent">
+            <span className="flex min-h-12 items-center justify-between rounded-xl border border-line bg-surface px-3.5 text-[0.95rem] transition-colors peer-checked:border-primary peer-checked:bg-primarybg peer-checked:font-semibold peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-accent">
               {o}
-              <span aria-hidden="true" className={`h-4 w-4 rounded-full border-2 ${value === o ? "border-ink bg-ink" : "border-line"}`} />
+              <span aria-hidden="true" className={`h-4 w-4 rounded-full border-2 ${value === o ? "border-primary bg-primary" : "border-line"}`} />
             </span>
           </label>
         ))}
@@ -138,8 +143,8 @@ export function Switch({
         <span className="block text-[0.95rem]">{label}</span>
         {note && <span className="block text-xs text-muted">{note}</span>}
       </span>
-      <span aria-hidden="true" className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${checked ? "bg-ink" : "bg-line"}`}>
-        <span className={`absolute top-1 h-5 w-5 rounded-full bg-paper transition-transform ${checked ? "translate-x-6" : "translate-x-1"}`} />
+      <span aria-hidden="true" className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${checked ? "bg-primary" : "bg-line"}`}>
+        <span className={`absolute top-1 h-5 w-5 rounded-full transition-transform ${checked ? "translate-x-6" : "translate-x-1"}`} style={{ background: checked ? "var(--on-primary)" : "var(--surface)" }} />
       </span>
     </button>
   );
@@ -171,7 +176,7 @@ export function Chip({ active, onClick, children }: { active?: boolean; onClick:
   return (
     <button type="button" onClick={onClick} aria-pressed={active}
       className={`min-h-11 shrink-0 rounded-full border px-4 text-sm font-medium transition-colors ${
-        active ? "border-ink bg-ink text-paper" : "border-line bg-surface text-ink"
+        active ? "border-primary bg-primary text-onprimary" : "border-line bg-surface text-ink hover:bg-surface2"
       }`}>
       {children}
     </button>

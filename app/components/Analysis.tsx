@@ -86,7 +86,7 @@ export function Analysis({
         ) : (
           <ul className="space-y-2">
             {ideas.map((s) => (
-              <li key={s.id} className="flex items-center justify-between gap-3 rounded-xl bg-surface2 p-3">
+              <li key={s.id} className="flex items-center justify-between gap-3 rounded-xl bg-primarybg p-3">
                 <div className="min-w-0">
                   <p className="text-[0.95rem] font-semibold">{s.title}</p>
                   <p className="text-sm text-muted">
@@ -95,7 +95,7 @@ export function Analysis({
                   </p>
                 </div>
                 <button type="button" onClick={() => onChange(normalize({ ...customer, ...s.change }))}
-                  className="min-h-11 shrink-0 rounded-full bg-ink px-4 text-sm font-semibold text-paper active:scale-95">
+                  className="min-h-11 shrink-0 rounded-full bg-primary px-4 text-sm font-semibold text-onprimary active:scale-95">
                   Try it
                 </button>
               </li>

@@ -30,7 +30,9 @@ export default function ScorePage() {
 
       {model && pred && (
         <>
-          <div className="sticky top-0 z-20 -mx-4 mb-4 border-b border-line bg-paper/90 px-4 py-2.5 backdrop-blur"
+          <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-8">
+          <div>
+          <div className="sticky top-0 z-20 -mx-4 mb-4 border-b border-line bg-paper/90 px-4 py-2.5 backdrop-blur md:-mx-8 md:px-8 lg:hidden"
             aria-live="polite" aria-atomic="true">
             <div className="flex items-center justify-between gap-3">
               <p className="display text-4xl font-semibold leading-none">
@@ -97,7 +99,13 @@ export default function ScorePage() {
             )}
           </div>
 
-          <Analysis model={model} customer={customer} onChange={setCustomer} />
+          </div>
+
+          <div className="lg:sticky lg:top-6 lg:max-h-[calc(100dvh-3rem)] lg:overflow-y-auto lg:p-1 lg:pr-2"
+            role="region" aria-label="Risk result">
+            <Analysis model={model} customer={customer} onChange={setCustomer} />
+          </div>
+          </div>
         </>
       )}
     </>

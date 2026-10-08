@@ -1,41 +1,69 @@
 @import "tailwindcss";
 
-/* Design tokens. Warm "paper & ink" palette; one signal-orange accent for risk. */
+/* Design tokens.
+   Palette: warm paper base, deep teal (brand/actions), coral (highlight), plus
+   semantic risk colours (green / amber / red) and a blue for neutral information. */
 :root {
-  --bg: #f1eadf;
-  --surface: #fffaf1;
-  --surface-2: #f7efe2;
-  --ink: #1d1b17;
-  --muted: #655e52;
-  --line: #ded3c0;
-  --accent: #c2410c;
-  --on-accent: #ffffff;
-  --safe: #2b6b59;
-  --safe-bg: #dcebe3;
+  --bg: #f3eee4;
+  --surface: #fffcf6;
+  --surface-2: #f6efe1;
+  --ink: #1b2421;
+  --muted: #5d6660;
+  --line: #dcd3c1;
+
+  --primary: #0f5e5a;
+  --on-primary: #ffffff;
+  --primary-bg: #d9ebe6;
+
+  --accent: #b83a0b;
+  --accent-bg: #f9dccb;
+
+  --safe: #266d46;
+  --safe-bg: #dcefe2;
   --warn: #8a5a00;
-  --warn-bg: #f6e6bf;
-  --high: #b3360a;
-  --high-bg: #f8dccd;
-  --shadow: 0 1px 0 rgba(29, 27, 23, 0.04), 0 8px 24px -12px rgba(60, 40, 10, 0.25);
+  --warn-bg: #f7e7bd;
+  --high: #b42318;
+  --high-bg: #fadcd7;
+  --info: #2f5d9e;
+  --info-bg: #dce6f5;
+
+  --hero-a: #0f5e5a;
+  --hero-b: #0a3c42;
+  --hero-ink: #f6f1e6;
+
+  --shadow: 0 1px 0 rgba(27, 36, 33, 0.04), 0 10px 28px -14px rgba(15, 70, 66, 0.28);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #12100d;
-    --surface: #1c1915;
-    --surface-2: #26221c;
-    --ink: #f3ece0;
-    --muted: #a8a090;
-    --line: #373126;
-    --accent: #ff8a4c;
-    --on-accent: #1a0e05;
-    --safe: #78c9ae;
-    --safe-bg: #17302a;
-    --warn: #e8b04a;
-    --warn-bg: #33270f;
-    --high: #ff9568;
-    --high-bg: #3a1c10;
-    --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+    --bg: #0e1412;
+    --surface: #16201d;
+    --surface-2: #1e2a26;
+    --ink: #eef1ea;
+    --muted: #9fb0a8;
+    --line: #2b3a35;
+
+    --primary: #4fd1c5;
+    --on-primary: #052622;
+    --primary-bg: #143733;
+
+    --accent: #ff8a65;
+    --accent-bg: #3a2018;
+
+    --safe: #6fd09a;
+    --safe-bg: #15301f;
+    --warn: #f0b84a;
+    --warn-bg: #35280d;
+    --high: #ff8c7f;
+    --high-bg: #3d1a16;
+    --info: #8ab4ff;
+    --info-bg: #182a47;
+
+    --hero-a: #14504b;
+    --hero-b: #0b2a2d;
+    --hero-ink: #eef1ea;
+
+    --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 10px 28px -14px rgba(0, 0, 0, 0.7);
   }
 }
 
@@ -46,14 +74,19 @@
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
+  --color-primary: var(--primary);
+  --color-onprimary: var(--on-primary);
+  --color-primarybg: var(--primary-bg);
   --color-accent: var(--accent);
-  --color-onaccent: var(--on-accent);
+  --color-accentbg: var(--accent-bg);
   --color-safe: var(--safe);
   --color-safebg: var(--safe-bg);
   --color-warn: var(--warn);
   --color-warnbg: var(--warn-bg);
   --color-high: var(--high);
   --color-highbg: var(--high-bg);
+  --color-info: var(--info);
+  --color-infobg: var(--info-bg);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
 }
@@ -66,8 +99,10 @@ html {
 
 body {
   background:
-    radial-gradient(1200px 500px at 85% -10%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 60%),
+    radial-gradient(900px 420px at 0% -8%, color-mix(in srgb, var(--primary) 14%, transparent), transparent 62%),
+    radial-gradient(800px 380px at 100% -6%, color-mix(in srgb, var(--accent) 11%, transparent), transparent 60%),
     var(--bg);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   -webkit-tap-highlight-color: transparent;
@@ -84,7 +119,7 @@ body {
 
 /* Visible keyboard focus everywhere (never removed, only restyled). */
 :focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--primary);
   outline-offset: 2px;
   border-radius: 8px;
 }
@@ -115,4 +150,4 @@ body {
   }
 }
 
-input[type="range"] { accent-color: var(--accent); }
+input[type="range"] { accent-color: var(--primary); }

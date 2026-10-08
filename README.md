@@ -1,12 +1,20 @@
 # Churn Radar: Customer Churn Predictor
 
-Predicts which telecom customers are likely to leave and **why**, then turns that into a retention decision using a cost-based threshold. Ships as an installable, mobile-first web app.
+Predicts which telecom customers are likely to leave and **why**, then turns that into a retention decision using a cost-based threshold. Ships as an installable web app that adapts from phone to laptop.
 
 **Live demo:** https://app-livid-sigma-13.vercel.app (open on a phone and "Add to Home Screen")
 
-| Home | Score a customer | Retention queue | Cost tuner |
-|---|---|---|---|
-| ![Home](docs/screenshots/1-home.png) | ![Score](docs/screenshots/2-score.png) | ![Queue](docs/screenshots/3-queue.png) | ![Cost](docs/screenshots/4-cost.png) |
+**Phone** (bottom tabs, thumb-reach controls):
+
+| Home | Score | Queue + backtest |
+|---|---|---|
+| ![Home](docs/screenshots/1-phone-home.png) | ![Score](docs/screenshots/2-phone-score.png) | ![Queue](docs/screenshots/3-phone-queue.png) |
+
+**Laptop** (sidebar, two-pane layouts, light and dark):
+
+![Score on laptop](docs/screenshots/4-laptop-score.png)
+![Queue on laptop](docs/screenshots/5-laptop-queue.png)
+![Cost tuner, dark mode](docs/screenshots/6-laptop-dark-cost.png)
 
 ## The app
 
@@ -15,7 +23,7 @@ Predicts which telecom customers are likely to leave and **why**, then turns tha
 - **Queue:** 1,409 unseen customers ranked by risk, with a **backtest toggle**: of the 100 highest-risk customers, 73 actually left (2.8× the 26.5% base rate).
 - **Insights:** churn drivers, a live calibration table (predicted vs actual), model comparison, and a **cost tuner** where you set your own cost of losing a customer and of an offer, and the best threshold and saving recalculate.
 
-Design choices (HCI): bottom tab navigation within thumb reach, 44px+ touch targets, one primary action per screen, a sticky live result so every edit gives immediate feedback, inputs constrained to valid combinations (error prevention), recognition over recall (segmented controls and presets), risk shown by text and shape and not by colour alone, light/dark themes, reduced-motion support, keyboard focus and screen-reader labels, and offline support via a service worker.
+Design choices (HCI): responsive layout (bottom tabs on phones, sidebar and two-pane screens on laptops), thumb-reach controls, 44px+ touch targets, one primary action per screen, a sticky live result so every edit gives immediate feedback, inputs constrained to valid combinations (error prevention), recognition over recall (segmented controls and presets), risk shown by text and shape and not by colour alone, light/dark themes, reduced-motion support, keyboard focus and screen-reader labels, and offline support via a service worker.
 
 ## Result
 
