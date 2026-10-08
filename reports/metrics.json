@@ -1,0 +1,40 @@
+{
+  "chosen_model": "logistic_regression",
+  "cv_results": {
+    "logistic_regression": {
+      "cv_auc": 0.8455,
+      "cv_pr_auc": 0.657
+    },
+    "random_forest": {
+      "cv_auc": 0.8443,
+      "cv_pr_auc": 0.6517
+    },
+    "xgboost": {
+      "cv_auc": 0.8459,
+      "cv_pr_auc": 0.6641
+    }
+  },
+  "threshold": 0.18,
+  "test": {
+    "n": 1409,
+    "auc": 0.8415,
+    "pr_auc": 0.6329,
+    "recall": 0.9733,
+    "precision": 0.382,
+    "customers_flagged": 953
+  },
+  "business_cost_on_test": {
+    "assumptions": {
+      "missed_churner": 500,
+      "wasted_offer": 50
+    },
+    "contact_nobody": 187000,
+    "contact_everybody": 51750,
+    "model_at_default_0.5": 54900,
+    "model_at_optimal_threshold": 34450,
+    "saving_vs_contact_nobody": 152550,
+    "saving_pct_vs_contact_nobody": 81.6,
+    "saving_vs_contact_everybody": 17300,
+    "saving_pct_vs_contact_everybody": 33.4
+  }
+}

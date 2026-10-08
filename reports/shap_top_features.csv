@@ -1,0 +1,16 @@
+,mean_abs_shap
+tenure,1.0143
+MonthlyCharges,0.589
+TotalCharges,0.3916
+InternetService_Fiber optic,0.3211
+InternetService_DSL,0.3091
+Contract_Month-to-month,0.3082
+Contract_Two year,0.2993
+PaperlessBilling_Yes,0.1649
+TechSupport_No internet service,0.1108
+OnlineBackup_No internet service,0.1108
+StreamingTV_No internet service,0.1108
+StreamingMovies_No internet service,0.1108
+InternetService_No,0.1108
+DeviceProtection_No internet service,0.1108
+OnlineSecurity_No internet service,0.1108

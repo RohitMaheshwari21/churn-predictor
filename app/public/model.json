@@ -1,0 +1,288 @@
+{
+  "intercept": -0.4776857711606846,
+  "threshold": 0.18,
+  "numeric": {
+    "tenure": {
+      "mean": 32.48509052183174,
+      "scale": 24.56656301538815
+    },
+    "MonthlyCharges": {
+      "mean": 64.92996095136671,
+      "scale": 30.135430576006627
+    },
+    "TotalCharges": {
+      "mean": 2299.33468228612,
+      "scale": 2279.001996496138
+    }
+  },
+  "categorical": {
+    "gender": {
+      "values": [
+        "Female",
+        "Male"
+      ],
+      "dropped": "Female"
+    },
+    "SeniorCitizen": {
+      "values": [
+        "0",
+        "1"
+      ],
+      "dropped": "0"
+    },
+    "Partner": {
+      "values": [
+        "No",
+        "Yes"
+      ],
+      "dropped": "No"
+    },
+    "Dependents": {
+      "values": [
+        "No",
+        "Yes"
+      ],
+      "dropped": "No"
+    },
+    "PhoneService": {
+      "values": [
+        "No",
+        "Yes"
+      ],
+      "dropped": "No"
+    },
+    "MultipleLines": {
+      "values": [
+        "No",
+        "No phone service",
+        "Yes"
+      ],
+      "dropped": null
+    },
+    "InternetService": {
+      "values": [
+        "DSL",
+        "Fiber optic",
+        "No"
+      ],
+      "dropped": null
+    },
+    "OnlineSecurity": {
+      "values": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "dropped": null
+    },
+    "OnlineBackup": {
+      "values": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "dropped": null
+    },
+    "DeviceProtection": {
+      "values": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "dropped": null
+    },
+    "TechSupport": {
+      "values": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "dropped": null
+    },
+    "StreamingTV": {
+      "values": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "dropped": null
+    },
+    "StreamingMovies": {
+      "values": [
+        "No",
+        "No internet service",
+        "Yes"
+      ],
+      "dropped": null
+    },
+    "Contract": {
+      "values": [
+        "Month-to-month",
+        "One year",
+        "Two year"
+      ],
+      "dropped": null
+    },
+    "PaperlessBilling": {
+      "values": [
+        "No",
+        "Yes"
+      ],
+      "dropped": "No"
+    },
+    "PaymentMethod": {
+      "values": [
+        "Bank transfer (automatic)",
+        "Credit card (automatic)",
+        "Electronic check",
+        "Mailed check"
+      ],
+      "dropped": null
+    }
+  },
+  "feature_names": [
+    "tenure",
+    "MonthlyCharges",
+    "TotalCharges",
+    "gender_Male",
+    "SeniorCitizen_1",
+    "Partner_Yes",
+    "Dependents_Yes",
+    "PhoneService_Yes",
+    "MultipleLines_No",
+    "MultipleLines_No phone service",
+    "MultipleLines_Yes",
+    "InternetService_DSL",
+    "InternetService_Fiber optic",
+    "InternetService_No",
+    "OnlineSecurity_No",
+    "OnlineSecurity_No internet service",
+    "OnlineSecurity_Yes",
+    "OnlineBackup_No",
+    "OnlineBackup_No internet service",
+    "OnlineBackup_Yes",
+    "DeviceProtection_No",
+    "DeviceProtection_No internet service",
+    "DeviceProtection_Yes",
+    "TechSupport_No",
+    "TechSupport_No internet service",
+    "TechSupport_Yes",
+    "StreamingTV_No",
+    "StreamingTV_No internet service",
+    "StreamingTV_Yes",
+    "StreamingMovies_No",
+    "StreamingMovies_No internet service",
+    "StreamingMovies_Yes",
+    "Contract_Month-to-month",
+    "Contract_One year",
+    "Contract_Two year",
+    "PaperlessBilling_Yes",
+    "PaymentMethod_Bank transfer (automatic)",
+    "PaymentMethod_Credit card (automatic)",
+    "PaymentMethod_Electronic check",
+    "PaymentMethod_Mailed check"
+  ],
+  "coef": [
+    -1.1383586579447895,
+    -0.663170212787049,
+    0.47068525953063395,
+    0.030788042165630695,
+    0.15078121370641967,
+    0.018660632460058592,
+    -0.23057157399163786,
+    -0.08182420144895022,
+    -0.21488415058872443,
+    -0.21451173326601894,
+    0.13305994913976119,
+    -0.6551321964515349,
+    0.6680833820569062,
+    -0.30928712032035593,
+    0.16317262127488166,
+    -0.30928712032035593,
+    -0.15022143566950713,
+    0.032373949707773554,
+    -0.30928712032035593,
+    -0.019422764102405635,
+    -0.02455373150399906,
+    -0.30928712032035593,
+    0.03750491710937119,
+    0.12967854152711278,
+    -0.30928712032035593,
+    -0.11672735592174005,
+    -0.2119698578453364,
+    -0.30928712032035593,
+    0.2249210434506953,
+    -0.22515393331527842,
+    -0.30928712032035593,
+    0.23810511892065625,
+    0.6214624895796463,
+    -0.1095230986163044,
+    -0.8082753256783375,
+    0.3360406477866209,
+    -0.18928941437724708,
+    -0.1872082836041664,
+    0.2134568723689969,
+    -0.13329510910256673
+  ],
+  "means": [
+    -0.004638087286289972,
+    -0.005583742709205045,
+    -0.008600421918204693,
+    0.504756495811444,
+    0.1621468124378816,
+    0.4830327985233565,
+    0.2995882436461735,
+    0.9031662643759761,
+    0.48132897912821243,
+    0.09683373562402385,
+    0.42183728524776376,
+    0.34374556297032516,
+    0.4395854039471816,
+    0.21666903308249325,
+    0.4966633536845094,
+    0.21666903308249325,
+    0.2866676132329973,
+    0.43844952435041884,
+    0.21666903308249325,
+    0.3448814425670879,
+    0.43944341899758627,
+    0.21666903308249325,
+    0.3438875479199205,
+    0.4931137299446259,
+    0.21666903308249325,
+    0.2902172369728809,
+    0.3989777083629135,
+    0.21666903308249325,
+    0.38435325855459324,
+    0.39542808462303,
+    0.21666903308249325,
+    0.3879028822944768,
+    0.5501916796819537,
+    0.20914383075394008,
+    0.24066448956410622,
+    0.5922192247621753,
+    0.21922476217520942,
+    0.2161010932841119,
+    0.3357944057929859,
+    0.22887973874769274
+  ],
+  "metrics": {
+    "auc": 0.8415,
+    "recall": 0.9733,
+    "precision": 0.382,
+    "cost": {
+      "assumptions": {
+        "missed_churner": 500,
+        "wasted_offer": 50
+      },
+      "contact_nobody": 187000,
+      "contact_everybody": 51750,
+      "model_at_default_0.5": 54900,
+      "model_at_optimal_threshold": 34450,
+      "saving_vs_contact_nobody": 152550,
+      "saving_pct_vs_contact_nobody": 81.6,
+      "saving_vs_contact_everybody": 17300,
+      "saving_pct_vs_contact_everybody": 33.4
+    }
+  }
+}
