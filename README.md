@@ -1,8 +1,21 @@
-# Customer Churn Predictor
+# Churn Radar: Customer Churn Predictor
 
-Predicts which telecom customers are likely to leave and **why**, then turns that into a retention decision using a cost-based threshold. Includes a live, explainable scoring app.
+Predicts which telecom customers are likely to leave and **why**, then turns that into a retention decision using a cost-based threshold. Ships as an installable, mobile-first web app.
 
-**Live demo:** _add your Vercel URL here after deploying_
+**Live demo:** https://app-livid-sigma-13.vercel.app (open on a phone and "Add to Home Screen")
+
+| Home | Score a customer | Retention queue | Cost tuner |
+|---|---|---|---|
+| ![Home](docs/screenshots/1-home.png) | ![Score](docs/screenshots/2-score.png) | ![Queue](docs/screenshots/3-queue.png) | ![Cost](docs/screenshots/4-cost.png) |
+
+## The app
+
+- **Home:** headline numbers, the biggest warning signs, and who to call first.
+- **Score:** edit any customer detail and watch the risk, the reasons and the what-if actions update live.
+- **Queue:** 1,409 unseen customers ranked by risk, with a **backtest toggle**: of the 100 highest-risk customers, 73 actually left (2.8× the 26.5% base rate).
+- **Insights:** churn drivers, a live calibration table (predicted vs actual), model comparison, and a **cost tuner** where you set your own cost of losing a customer and of an offer, and the best threshold and saving recalculate.
+
+Design choices (HCI): bottom tab navigation within thumb reach, 44px+ touch targets, one primary action per screen, a sticky live result so every edit gives immediate feedback, inputs constrained to valid combinations (error prevention), recognition over recall (segmented controls and presets), risk shown by text and shape and not by colour alone, light/dark themes, reduced-motion support, keyboard focus and screen-reader labels, and offline support via a service worker.
 
 ## Result
 
@@ -13,7 +26,7 @@ On a held-out test set of 1,409 customers (never used for model or threshold sel
 | ROC-AUC | **0.84** |
 | Recall at chosen threshold | 97% |
 | Precision at chosen threshold | 38% |
-| Decision threshold | 0.18 (cost-optimised, not 0.5) |
+| Decision threshold | 7.3% calibrated risk (0.18 on the raw class-weighted score); cost-optimised, not 0.5 |
 
 **Business impact** (assumptions: a missed churner costs $500, a wasted retention offer costs $50):
 
@@ -50,6 +63,7 @@ Gender has no effect (26.9% vs 26.2%). **Recommendations:** target the first six
 
    The three are statistically indistinguishable, so the **simplest model (logistic regression) was chosen**: it is exactly explainable and light enough to run in the browser.
 3. **Imbalance** (26.5% churn): class weighting, evaluated with AUC/PR-AUC/recall rather than accuracy.
+   Class weighting inflates predicted probabilities (mean 41.6% against a true 26.5%), so scores are **recalibrated with a prior-shift correction** before they are shown as "chance of leaving". On the test set the calibrated mean is 26.7%, and predicted vs actual rates match in every risk band (the Insights screen shows this live). The cost-optimal threshold becomes 7.3%, close to the textbook 50/(500+50) = 9.1%.
 4. **Threshold**: chosen on out-of-fold training predictions by minimising expected cost, then evaluated once on the test set.
 5. **Explainability** ([src/explain.py](src/explain.py)): SHAP summary plot ([reports/figures/shap_summary.png](reports/figures/shap_summary.png)). For a linear model the per-customer explanation is exact (`coef x (x - mean)`), which the app uses.
 6. **App** ([app/](app/)): Next.js + Tailwind. The fitted model is exported to JSON and scored in TypeScript, so no Python runtime or server is needed. [app/lib/verify.mts](app/lib/verify.mts) confirms the TypeScript output matches scikit-learn to 1e-16 on 25 customers.
@@ -68,6 +82,8 @@ python -m venv .venv && .venv\Scripts\activate    # Windows
 pip install -r requirements.txt
 python src/train.py        # trains, picks the threshold, writes reports/metrics.json + model.joblib
 python src/explain.py      # SHAP plot + exports app/public/model.json
+python src/export_app_data.py   # segment stats + test customers for the app
+python src/make_icons.py        # home-screen icons
 
 cd app
 npm install

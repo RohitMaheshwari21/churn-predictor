@@ -1,6 +1,8 @@
 {
   "intercept": -0.4776857711606846,
-  "threshold": 0.18,
+  "calibration_shift": 1.0182425552904115,
+  "threshold": 0.07346858552990762,
+  "raw_threshold": 0.18,
   "numeric": {
     "tenure": {
       "mean": 32.48509052183174,
@@ -266,6 +268,20 @@
     0.3357944057929859,
     0.22887973874769274
   ],
+  "cv_results": {
+    "logistic_regression": {
+      "cv_auc": 0.8455,
+      "cv_pr_auc": 0.657
+    },
+    "random_forest": {
+      "cv_auc": 0.8443,
+      "cv_pr_auc": 0.6517
+    },
+    "xgboost": {
+      "cv_auc": 0.8459,
+      "cv_pr_auc": 0.6641
+    }
+  },
   "metrics": {
     "auc": 0.8415,
     "recall": 0.9733,

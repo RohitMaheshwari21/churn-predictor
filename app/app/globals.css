@@ -1,26 +1,118 @@
 @import "tailwindcss";
 
+/* Design tokens. Warm "paper & ink" palette; one signal-orange accent for risk. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --bg: #f1eadf;
+  --surface: #fffaf1;
+  --surface-2: #f7efe2;
+  --ink: #1d1b17;
+  --muted: #655e52;
+  --line: #ded3c0;
+  --accent: #c2410c;
+  --on-accent: #ffffff;
+  --safe: #2b6b59;
+  --safe-bg: #dcebe3;
+  --warn: #8a5a00;
+  --warn-bg: #f6e6bf;
+  --high: #b3360a;
+  --high-bg: #f8dccd;
+  --shadow: 0 1px 0 rgba(29, 27, 23, 0.04), 0 8px 24px -12px rgba(60, 40, 10, 0.25);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #12100d;
+    --surface: #1c1915;
+    --surface-2: #26221c;
+    --ink: #f3ece0;
+    --muted: #a8a090;
+    --line: #373126;
+    --accent: #ff8a4c;
+    --on-accent: #1a0e05;
+    --safe: #78c9ae;
+    --safe-bg: #17302a;
+    --warn: #e8b04a;
+    --warn-bg: #33270f;
+    --high: #ff9568;
+    --high-bg: #3a1c10;
+    --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme inline {
+  --color-paper: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-onaccent: var(--on-accent);
+  --color-safe: var(--safe);
+  --color-safebg: var(--safe-bg);
+  --color-warn: var(--warn);
+  --color-warnbg: var(--warn-bg);
+  --color-high: var(--high);
+  --color-highbg: var(--high-bg);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
 }
+
+html {
+  background: var(--bg);
+  color-scheme: light dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background:
+    radial-gradient(1200px 500px at 85% -10%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 60%),
+    var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+.display {
+  font-family: var(--font-display), Georgia, serif;
+  font-variation-settings: "opsz" 60;
+  letter-spacing: 0;
+  word-spacing: 0.06em;
+  font-variant-numeric: lining-nums;
+}
+
+/* Visible keyboard focus everywhere (never removed, only restyled). */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Entrance: one orchestrated, staggered reveal per screen. */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.rise { animation: rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.rise:nth-child(2) { animation-delay: 60ms; }
+.rise:nth-child(3) { animation-delay: 120ms; }
+.rise:nth-child(4) { animation-delay: 180ms; }
+.rise:nth-child(5) { animation-delay: 240ms; }
+
+@keyframes sheet {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.sheet-in { animation: sheet 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+input[type="range"] { accent-color: var(--accent); }

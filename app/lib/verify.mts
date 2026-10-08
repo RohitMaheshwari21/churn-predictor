@@ -11,7 +11,9 @@ const ref: { input: Customer; proba: number }[] = JSON.parse(
 
 let maxDiff = 0;
 for (const r of ref) {
-  maxDiff = Math.max(maxDiff, Math.abs(predict(model, r.input).probability - r.proba));
+  // sklearn gives the raw (class-weighted) probability; apply the same prior-shift correction.
+  const expected = 1 / (1 + Math.exp(-(Math.log(r.proba / (1 - r.proba)) - model.calibration_shift)));
+  maxDiff = Math.max(maxDiff, Math.abs(predict(model, r.input).probability - expected));
 }
 console.log(`checked ${ref.length} customers, max |diff| = ${maxDiff.toExponential(2)}`);
 if (maxDiff > 1e-9) {

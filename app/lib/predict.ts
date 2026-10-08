@@ -3,9 +3,13 @@
 
 export type ModelJson = {
   intercept: number;
+  /** Prior-shift correction for class-weighted training (see src/explain.py). */
+  calibration_shift: number;
+  /** Cost-optimal decision threshold on the calibrated probability. */
   threshold: number;
   numeric: Record<string, { mean: number; scale: number }>;
   categorical: Record<string, { values: string[]; dropped: string | null }>;
+  cv_results?: Record<string, { cv_auc: number; cv_pr_auc: number }>;
   feature_names: string[];
   coef: number[];
   means: number[];
@@ -64,7 +68,7 @@ export function predict(model: ModelJson, customer: Customer): Prediction {
     byFeature.set(owner[i], (byFeature.get(owner[i]) ?? 0) + contribution);
   }
 
-  const probability = sigmoid(logit);
+  const probability = sigmoid(logit - model.calibration_shift);
   const reasons: Reason[] = [...byFeature.entries()]
     .map(([feature, impact]) => ({
       feature,

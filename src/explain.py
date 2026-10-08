@@ -54,9 +54,18 @@ def main():
     for col, cats, drop in zip(cat_cols, ohe.categories_, ohe.drop_idx_):
         categories[col] = {"values": [str(c) for c in cats],
                            "dropped": None if drop is None else str(cats[drop])}
+    # class_weight="balanced" trains on an effective 50% prior, which inflates probabilities.
+    # Prior-shift correction: subtract log((1-pi)/pi) from the logit, pi = training prevalence.
+    # Verified on the test set: calibrated mean 0.267 vs actual churn rate 0.265.
+    y_train_rate = float(df["Churn"].mean())
+    shift = float(np.log((1 - y_train_rate) / y_train_rate))
+    raw_thr = metrics["threshold"]
+    cal_thr = float(1 / (1 + np.exp(-(np.log(raw_thr / (1 - raw_thr)) - shift))))
     export = {
         "intercept": float(model.intercept_[0]),
-        "threshold": metrics["threshold"],
+        "calibration_shift": shift,
+        "threshold": cal_thr,
+        "raw_threshold": raw_thr,
         "numeric": {c: {"mean": float(m), "scale": float(s)}
                     for c, m, s in zip(NUMERIC, scaler.mean_, scaler.scale_)},
         "categorical": categories,
@@ -64,6 +73,7 @@ def main():
         "coef": [float(c) for c in model.coef_[0]],
         # training-set mean of each transformed column: SHAP value = coef * (x - mean)
         "means": [float(m) for m in Z.mean(axis=0)],
+        "cv_results": metrics["cv_results"],
         "metrics": {"auc": metrics["test"]["auc"], "recall": metrics["test"]["recall"],
                     "precision": metrics["test"]["precision"],
                     "cost": metrics["business_cost_on_test"]},
